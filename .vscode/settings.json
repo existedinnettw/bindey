@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "*.h": "cpp",
+        "*.hpp": "cpp",
+        "*.cc": "cpp",
+        "*.cpp": "cpp",
+    },
+    "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+    "C_Cpp.autoAddFileAssociations": false,
+    "C_Cpp.clang_format_fallbackStyle": "{BasedOnStyle: 'Mozilla' , ColumnLimit: 120}",
+    "files.exclude": {
+        "**/build": true
+    },
+}

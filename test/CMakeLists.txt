@@ -1,14 +1,10 @@
 list(APPEND SOURCE_tests binding.test.cpp)
 list(APPEND SOURCE_tests property.test.cpp)
-list(APPEND SOURCE_tests main.cpp)
 
 find_package(Catch2 REQUIRED CONFIG)
 
 add_executable(bindey-test ${SOURCE_tests})
-target_link_libraries(bindey-test PRIVATE bindey Catch2::Catch2)
-# Catch2::Catch2WithMain
-
-# Catch2::Catch2
+target_link_libraries(bindey-test PRIVATE bindey Catch2::Catch2WithMain)
 
 # add tests to CTest
 include(CTest)

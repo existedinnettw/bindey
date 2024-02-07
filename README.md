@@ -8,7 +8,7 @@ Everyone knows Model-View-ViewModel is the best architecture, but how can we rea
 
 At minimum, `bindey::property` can allow you to avoid writing getters and setters. Consider this example:
 
-```
+```cpp
 #include <bindey/property.h>
 
 using namespace bindey;
@@ -21,7 +21,7 @@ public:
 };
 ```
 Then we can use it like this:
-```
+```cpp
 Person p;
 p.name("Kevin");
 p.age(666);
@@ -31,7 +31,7 @@ auto ageIsJustANumber = p.age();
 ```
 
 `property` default initializes its value with `{}`, and of course allows initialization.
-```
+```cpp
 Person::Person()
 : name("Default Name")
 , age(0)
@@ -39,12 +39,12 @@ Person::Person()
 ```
 ## Data Binding
 `bindey` provides a simple binding mechanism to connect a "source" `property` to an arbitrary object. This base signature is
-```
+```cpp
 template <typename T, typename To>
 binding bind( property<T>& from, To& to );
 ```
 And a specialization for `property` to `property` binding of the same type is provided.
-```
+```cpp
 template<typename T>
 binding bind( property<T>& from, property<T>& to )
 {
@@ -54,7 +54,7 @@ binding bind( property<T>& from, property<T>& to )
 
 ### Writing Your Own Bindings
 Where this becomes fun is when you get to reduce boilerplate. For example, assume a `Button` class from some UI Framework.
-```
+```cpp
 struct Button
 {
     void setText(const std::string& text)
@@ -66,7 +66,7 @@ struct Button
 };
 ```
 To make your life better, simply implement a template speciailization in the `bindey` namespace.
-```
+```cpp
 namespace bindey
 {
 template <>
@@ -91,7 +91,7 @@ The result of a call to `bind` is a `bindey::binding` object. If this return val
 Otherwise, this token can be used to disconnect the binding as needed, the easiest way is to capture it in a `scoped_binding` object.
 
 For example, if your binding involves objects who's lifetime you do not control, you should certainly capture the binding to avoid crashes.
-```
+```cpp
 struct GreatObj
 {
     GreatObj(Button* b)

@@ -1,12 +1,9 @@
-#include "bindey.h"
+#include <bindey/binding.h>
+#include <bindey/property.h>
 #include <vector>
 #include <string>
 
 int main() {
-    bindey();
-
-    std::vector<std::string> vec;
-    vec.push_back("test_package");
-
-    bindey_print_vector(vec);
+     bindey::property<bool> boolProp;
+     boolProp.set( false );
 }
