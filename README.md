@@ -114,3 +114,15 @@ struct GreatObj
     bindey::scoped_binding mButtonBinding;
 };
 ```
+
+## build
+
+```bash
+git submodule init
+git submodule update --recursive
+conan build .
+```
+
+## log
+- `BINDEY_BUILD_TESTS` have been replaced by `BUILD_TESTING`
+- `Catch2` update by conan package.
