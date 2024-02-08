@@ -20,7 +20,8 @@ class bindeyRecipe(ConanFile):
     default_options = {"shared": False, "fPIC": True}
 
     # Sources are located in the same place as this recipe, copy them to the recipe
-    exports_sources = "CMakeLists.txt", "src/*", "include/*"
+    package_type = "header-library"
+    exports_sources = "CMakeLists.txt", "src/*", "include/*", "test/*"
 
     def requirements(self):
         self.requires("sigslot/[~1]")
@@ -47,6 +48,10 @@ class bindeyRecipe(ConanFile):
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
+
+    def package_id(self):
+        #header only lib
+        self.info.clear()
 
     def package(self):
         cmake = CMake(self)
