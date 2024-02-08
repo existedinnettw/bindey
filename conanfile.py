@@ -23,6 +23,7 @@ class bindeyRecipe(ConanFile):
     exports_sources = "CMakeLists.txt", "src/*", "include/*"
 
     def requirements(self):
+        self.requires("sigslot/[~1]")
         self.test_requires("catch2/[~3]")
 
     def config_options(self):

@@ -17,6 +17,8 @@ if(BINDEY_USE_BUNDLED_NODSIGNAL)
   find_package(nod-signal REQUIRED)
 endif()
 
+find_package(PalSigslot REQUIRED CONFIG)
+
 # Library
 
 list(APPEND FILES_source include/bindey/binding.h)
@@ -26,7 +28,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/include FILES ${FILES_source})
 add_library(bindey INTERFACE ${FILES_source})
 target_include_directories(bindey INTERFACE include)
 
-target_link_libraries(bindey INTERFACE ${BINDEY_NODSIGNAL_TARGET})
+target_link_libraries(bindey INTERFACE ${BINDEY_NODSIGNAL_TARGET} Pal::Sigslot)
 
 target_compile_features(bindey INTERFACE cxx_std_14)
 

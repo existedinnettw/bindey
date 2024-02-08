@@ -5,6 +5,7 @@
 TEST_CASE( "Default ctor / Basic Contract" )
 {
     bindey::property<bool> boolProp;
+    // bindey::sigslot_property<bool> boolProp;
 
     // properties are default initialized
     CHECK( boolProp.get() == false );

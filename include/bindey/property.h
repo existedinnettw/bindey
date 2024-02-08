@@ -1,7 +1,7 @@
 #pragma once
 
 #include <nod/nod.hpp>
-
+#include <sigslot/signal.hpp>
 #include <functional>
 
 namespace bindey
@@ -22,7 +22,9 @@ public:
 
 template <typename T,
           typename UpdatePolicy = std::not_equal_to<T>,
-          typename Signal       = nod::unsafe_signal<void( const T& )>>
+        //   typename Signal       = nod::unsafe_signal<void( const T& )>
+          typename Signal       = sigslot::signal_st<const T&>
+          >
 class property
 {
 public:
@@ -105,7 +107,8 @@ public:
     /**
      * convience function to attach a change listener to this property
      */
-    auto onChanged( typename decltype( changed )::slot_type&& c )
+    // auto onChanged( typename decltype( changed )::slot_type&& c )
+    auto onChanged( std::function<void( const T& )>&& c )
     {
         return changed.connect( std::move( c ) );
     }
@@ -113,7 +116,8 @@ public:
     /**
      * convience function to attach a change listener to this property and call it right away
      */
-    auto onChangedAndNow( typename decltype( changed )::slot_type&& c )
+    // auto onChangedAndNow( typename decltype( changed )::slot_type&& c )
+    auto onChangedAndNow( std::function<void( const T& )>&& c )
     {
         auto connection = onChanged( std::move( c ) );
         changed( mStorage );
@@ -125,10 +129,22 @@ private:
     T mStorage{};
 };
 
+// /**
+//  * thread safe property type based on nod::signal
+//  */
+// template <typename T, typename UpdatePolicy = std::not_equal_to<T>>
+// using safe_property = property<T, UpdatePolicy, nod::signal<void( const T& )>>;
+
 /**
- * thread safe property type based on nod::signal
- */
+ * thread safe property type
+ * 
+ * add `sigslot` lib as backend.
+ * > Many implementations allow signal return types, Sigslot does not because I
+ *  have no use for them. If I can be convinced of otherwise I may change my mind later on.
+ * 
+ * sigslot fix void as return value.
+*/
 template <typename T, typename UpdatePolicy = std::not_equal_to<T>>
-using safe_property = property<T, UpdatePolicy, nod::signal<void( const T& )>>;
+using safe_property=property<T, UpdatePolicy, sigslot::signal<const T&>>;
 
 } // namespace bindey

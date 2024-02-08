@@ -10,8 +10,10 @@
 namespace bindey
 {
 
-using binding        = nod::connection;
-using scoped_binding = nod::scoped_connection;
+// using binding        = nod::connection;
+using binding = sigslot::connection;
+// using scoped_binding = nod::scoped_connection;
+using scoped_binding = sigslot::scoped_connection;
 
 /**
  * base binding signature

@@ -77,7 +77,7 @@ binding bind( property<std::string>& from, Button& to )
 } // namespace bindey
 ```
 Then, bind your property to the button as needed:
-```
+```cpp
 bindey::property<std::string> name;
 ...
 Button someButton;
